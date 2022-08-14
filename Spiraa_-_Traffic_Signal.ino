@@ -125,6 +125,7 @@ void sweep()
 
   while (1)
   {
+    // The roads are scanned continuously for the traffic and decisions are taken accordingly.
     scan();
     takeDes(news);
     delay(trafficSignalTimer);
@@ -177,21 +178,23 @@ void calibrate()
 
     for (int j = 0; j < 4; j++)
     {
-      calibrationConst[j][i] = news[j];
+      calibrationConst[j][i] = news[j]; // Assigning the calibrations constants with distance sensed by the four sensors when the road is empty.
     }
   }
 }
 
 void readRoads()
 {
+  
   for (int i = 4; i < 8; i++)
   {
-    newsBitMap[i - 4] = readUltrasonicDistance(i, i);
+    newsBitMap[i - 4] = readUltrasonicDistance(i, i); // The distance is calculated and stored in the BitMap.
   }
 }
 
 void turn(int angle)
 {
+  // turn() method is used to turn all servos at a particular angle simultaneously.
   servoN.write(angle);
 
   servoE.write(angle);
