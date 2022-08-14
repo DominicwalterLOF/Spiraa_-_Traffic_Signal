@@ -127,7 +127,7 @@ void sweep()
   {
     // The roads are scanned continuously for the traffic and decisions are taken accordingly.
     scan();
-    takeDes(news);
+    signal(takeDes(news));
     delay(trafficSignalTimer);
   }
   
