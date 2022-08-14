@@ -64,20 +64,6 @@ long readUltrasonicDistance(int triggerPin, int echoPin)
   return pulseIn(echoPin, HIGH);
 }
 
-void setup()
-{
-  Serial.begin(9600);
-
-  servoN.attach(8);
-
-  servoE.attach(9);
-
-  servoW.attach(10);
-
-  servoS.attach(11);
-
-  sweep();
-}
 
 void loop()
 {
@@ -141,7 +127,7 @@ void sweep()
   {
     scan();
     takeDes(news);
-    delay(TrafficSignalTimer);
+    delay(trafficSignalTimer);
   }
   
 }
@@ -196,7 +182,7 @@ void calibrate()
   }
 }
 
-void readRoads(int calibrating)
+void readRoads()
 {
   for (int i = 4; i < 8; i++)
   {
@@ -215,4 +201,19 @@ void turn(int angle)
   servoS.write(angle);
 
   delay(30);
+}
+
+void setup()
+{
+  Serial.begin(9600);
+
+  servoN.attach(8);
+
+  servoE.attach(9);
+
+  servoW.attach(10);
+
+  servoS.attach(11);
+
+  sweep();
 }
