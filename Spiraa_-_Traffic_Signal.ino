@@ -222,3 +222,24 @@ void setup()
   sweep();
 
 }
+
+void signal(int d)
+{
+  switch (d)
+  {
+  case 0:
+    digitalWrite(2, HIGH);
+    break;
+  case 1:
+    digitalWrite(3, HIGH);
+    break;
+  case 2:
+    digitalWrite(12, HIGH);
+    break;
+  case 3:
+    digitalWrite(13, HIGH);
+    break;
+  default:
+    break;
+  }
+}
