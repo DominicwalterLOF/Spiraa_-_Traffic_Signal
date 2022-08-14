@@ -137,19 +137,19 @@ void scan()
 
   for (int i = 0; i < 4; i++)
   {
-    news[i] = 0;
+    news[i] = 0; // Traffic density of all the roads are initialized with 0.
   }
 
   for (int i = 0; i < 90; i++)
   {
 
-    turn(i);
+    turn(i); // All the servos are aligned to a particular angle.
 
-    readRoads();
+    readRoads(); // The roads are scanned by the ultrasonic sensor for the particular angle and BitMap is created.
 
     for (int j = 0; i < 4; i++)
     {
-      news[j] += newsBitMap[j];
+      news[j] += newsBitMap[j]; // The values of the BitMap are added to the news array
     }
     
   }
