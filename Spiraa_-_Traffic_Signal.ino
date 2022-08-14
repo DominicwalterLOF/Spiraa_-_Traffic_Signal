@@ -177,7 +177,7 @@ void calibrate()
 
     for (int j = 0; j < 4; j++)
     {
-      calibrationConst[j][i] == news[j];
+      calibrationConst[j][i] = news[j];
     }
   }
 }
@@ -205,6 +205,7 @@ void turn(int angle)
 
 void setup()
 {
+
   Serial.begin(9600);
 
   servoN.attach(8);
@@ -216,4 +217,5 @@ void setup()
   servoS.attach(11);
 
   sweep();
+
 }
