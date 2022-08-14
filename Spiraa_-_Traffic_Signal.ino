@@ -28,7 +28,9 @@ Servo servoN, servoE, servoW, servoS;
 
 int calibrationConst[4][90];
 
-int tempArr[4];
+int news[4];
+
+int newsBitMap[4];
 
 int inches = 0;
 
@@ -39,7 +41,7 @@ long readUltrasonicDistance(int triggerPin, int echoPin)
 {
   // Clear the trigger
 
-  pinMode(triggerPin, OUTPUT); 
+  pinMode(triggerPin, OUTPUT);
 
   digitalWrite(triggerPin, LOW);
 
@@ -58,7 +60,6 @@ long readUltrasonicDistance(int triggerPin, int echoPin)
   // Reads the echo pin, and returns the sound wave travel time in microseconds
 
   return pulseIn(echoPin, HIGH);
-
 }
 
 void setup()
@@ -92,7 +93,7 @@ void loop()
 
   Serial.println("cm");
 
- // Wait for 100 millisecond(s)
+  // Wait for 100 millisecond(s)
 
   delay(100);
 }
@@ -127,6 +128,28 @@ int takeDest(int arr[])
   return maxTraffic;
 }
 
+void sweep()
+{
+
+  // When the system is turned on for the first time the roads will be calibrated.
+
+  calibrate();
+
+
+}
+
+void scan()
+{
+
+  for (int i = 0; i < 4; i++)
+  {
+    readRoads();
+
+  }
+  
+
+}
+
 void calibrate()
 {
 
@@ -148,26 +171,25 @@ void calibrate()
     readRoads();
 
     for (int j = 0; j < 4; j++)
-
     {
-
-      calibrationConst[j][i] == tempArr[j];
-
+      calibrationConst[j][i] == news[j];
     }
-
   }
-
 }
 
-void readRoads()
+void readRoads(int calibrating)
 {
-  for(int i = 4; i < 8; i++)
-  {
-    calibrationConst[i-4] = readUltrasonicDistance(i, i);
+    for (int i = 4; i < 8; i++)
+    {
+      news[i - 4] = readUltrasonicDistance(i, i);
+    }
   }
-  
-}
 
-void turn(int angle)
-{
+
+void turn(int angle){
+    servoN.write(angle);
+    servoE.write(angle);
+    servoW.write(angle);
+    servoS.write(angle);
+    delay(30);
 }
