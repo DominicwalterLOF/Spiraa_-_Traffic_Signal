@@ -7,7 +7,7 @@
   \___  \   |:  ____/ |:  |  |_____/   )   /' /\  \      /' /\  \
    __/  \\  (|  /     |.  |   //      /   //  __'  \    //  __'  \
   /" \   :)/|__/ \    /\  |\ |:  __   \  /   /  \\  \  /   /  \\  \
-  (_______/(_______)  (__\_|_)|__|  \___)(___/    \___)(___/    \___)
+  (_______/(_______) (__\_|_ )|__|  \___)(___/    \___)(___/    \___)
 
   PS: I always felt the present traffic timing device is
   not fair in its control. Same time for all sides
@@ -20,14 +20,13 @@
   ====================================================================
 */
 
-
-
 #include <Servo.h>
-
 
 Servo servoN, servoE, servoW, servoS;
 
 int calibrationConst[4][90];
+
+int tempArr[4];
 
 int inches = 0;
 
@@ -35,7 +34,7 @@ int cm = 0;
 
 long readUltrasonicDistance(int triggerPin, int echoPin)
 {
-  pinMode(triggerPin, OUTPUT);  // Clear the trigger
+  pinMode(triggerPin, OUTPUT); // Clear the trigger
   digitalWrite(triggerPin, LOW);
   delayMicroseconds(2);
   // Sets the trigger pin to HIGH state for 10 microseconds
@@ -69,29 +68,61 @@ void loop()
   delay(100); // Wait for 100 millisecond(s)
 }
 
-
 int takeDes(int arr[])
 {
   int flag = -1;
-  //logic goes here
+  // logic goes here
   return flag;
 }
 
-int takeDest(int arr[]) {
-  int maxTraffic = 0; // Assuming maxTraffic in the index 0.
+int takeDest(int arr[])
+{
+  // Assuming maxTraffic in the index 0.
+
+  int maxTraffic = 0;
+
+  // Comparing each element in the array with the maxTraffic.
+
   for (int i = 0; i < 4; i++)
-    if (arr[i] > arr[maxTraffic]) // Comparing each element in the array with the maxTraffic.
-      maxTraffic = i; // When an element is greater than the maxTraffic we are replacing the maxTraffic to index of that element.
 
-  return maxTraffic; // After the end of the loop the maxTraffic is returned.
+    if (arr[i] > arr[maxTraffic])
+
+      // When an element is greater than the maxTraffic we are replacing the maxTraffic to index of that element.
+
+      maxTraffic = i;
+
+  // After the end of the loop the maxTraffic is returned.
+
+  return maxTraffic;
 }
 
+void calibrate()
+{
 
-void calibrate() {
+  /*
+  Calibrate function
+  Can be used for calibrating the traffic signal
+  We read the values of empty reads first and store it in the tow dimensional array calibrationConst
+  
 
+
+  */
+
+  for (var i = 0; i < 90; i++)
+  {
+    // Align all the servos to a particular angle 
+    turn(i);
+    readRoads() for (var j = 0; j < 4; j++){
+        calibrationConst[j][i] == tempArr[j]}
+
+    readValues
+  }
 }
 
+void readRoads()
+{
+}
 
-void turn(int angle) {
-
+void turn(int angle)
+{
 }
