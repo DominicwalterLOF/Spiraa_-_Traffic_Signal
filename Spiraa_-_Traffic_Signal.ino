@@ -30,6 +30,8 @@ int calibrationConst[4][90];
 
 int news[4];
 
+int trafficSignalTimer = 1000;
+
 int newsBitMap[4];
 
 int inches = 0;
@@ -73,10 +75,15 @@ void setup()
   servoW.attach(10);
 
   servoS.attach(11);
+
+  sweep();
 }
 
 void loop()
 {
+
+
+  /*
   // measure the ping time in cm
 
   cm = 0.01723 * readUltrasonicDistance(7, 7);
@@ -96,20 +103,15 @@ void loop()
   // Wait for 100 millisecond(s)
 
   delay(100);
+
+  */
+
+
 }
 
 int takeDes(int arr[])
 {
-  int flag = -1;
-
-  // logic goes here
-
-  return flag;
-}
-
-int takeDest(int arr[])
-{
-  // Assuming maxTraffic in the index 0.
+   // Assuming maxTraffic in the index 0.
 
   int maxTraffic = 0;
 
@@ -135,7 +137,13 @@ void sweep()
 
   calibrate();
 
-
+  while (1)
+  {
+    scan();
+    takeDes(news);
+    delay(TrafficSignalTimer);
+  }
+  
 }
 
 void scan()
@@ -143,11 +151,22 @@ void scan()
 
   for (int i = 0; i < 4; i++)
   {
+    news[i] = 0;
+  }
+
+  for (int i = 0; i < 90; i++)
+  {
+
+    turn(i);
+
     readRoads();
 
+    for (int j = 0; i < 4; i++)
+    {
+      news[j] += newsBitMap[j];
+    }
+    
   }
-  
-
 }
 
 void calibrate()
@@ -179,17 +198,21 @@ void calibrate()
 
 void readRoads(int calibrating)
 {
-    for (int i = 4; i < 8; i++)
-    {
-      news[i - 4] = readUltrasonicDistance(i, i);
-    }
+  for (int i = 4; i < 8; i++)
+  {
+    newsBitMap[i - 4] = readUltrasonicDistance(i, i);
   }
+}
 
+void turn(int angle)
+{
+  servoN.write(angle);
 
-void turn(int angle){
-    servoN.write(angle);
-    servoE.write(angle);
-    servoW.write(angle);
-    servoS.write(angle);
-    delay(30);
+  servoE.write(angle);
+
+  servoW.write(angle);
+
+  servoS.write(angle);
+
+  delay(30);
 }
